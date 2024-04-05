@@ -105,7 +105,7 @@ body, html {
     <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Summary</span></h5>
     <!-- <p>The Cafe was founded in blabla by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
     <p>In addition to our full espresso and brew bar menu, we serve fresh made-to-order breakfast and lunch sandwiches, as well as a selection of sides and salads and other good stuff.</p> -->
-    <p>We are going to implement a distributed decision tree on the GHC machine using a hybrid of CPU and GPU, then compare the performance between the sequential version and the parallel version of the algorithm.</p>
+    <p>We are going to implement a parallel version of Dijkstra algorithm on both PIM system and GPU, and compare between two kind of architecture on the Graph workload.</p>
     <div class="w3-panel w3-leftbar w3-light-grey">
         <a href="https://github.com/Xialin0505/15618Project/tree/main">GitHub link for the project</a>
       <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
@@ -123,22 +123,18 @@ body, html {
       <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Background</span></h5>
       <!-- <p>The Cafe was founded in blabla by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       <p>In addition to our full espresso and brew bar menu, we serve fresh made-to-order breakfast and lunch sandwiches, as well as a selection of sides and salads and other good stuff.</p> -->
-      <p>The decision tree is an algorithm for classification, with a tree-like structure in which each branch is the outcome of a test, and a leaf node is the class label. The path from the root to each leaf node is the classification rule of the class. </p>
-      <img src="./decisionTree.jpeg" style="width:100%;max-width:1000px" class="w3-margin-top">
+      <p>The Dijkstra algorithm finds the shortest path from one vertex to all other vertices, which is widely used in network routing protocols and is foundational for many types of network analysis.</p>
+
+      <p>The PIM system we used for comparison with GPU, is a process-in-memory system that having multiple data process unit (DPU) located near the memory. This type of architecture aim for improving the performance by reducing the data movement within the cache hierarchy. Since the DPU is located close to the memory, the network latency for the memory access can be also reduced. </p>
     
       <p>Here are several aspects of the algorithm that can benefit greatly from parallelism:</p>
       <div class="w3-panel w3-leftbar w3-light-grey">
-        <p>1. Splitting on Attributes: The decision tree algorithm evaluates each attribute to determine the best split. This process involves calculating a metric (such as information gain, Gini impurity, or entropy reduction) for each attribute across all examples. Since the calculation for each attribute is independent of the others, these calculations can be performed in parallel, potentially reducing the overall time to identify the best splitting attribute.</p>
+        <p>1. Handling each destination vertex: each thread compute the shortest distance between a vertex and the source. </p>
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
       </div>
       <div class="w3-panel w3-leftbar w3-light-grey">
-        <p>2. Handling Subtrees: After selecting an attribute to split on, the algorithm recursively creates new subtrees for each value of the attribute. These subtrees are independent of each other since they operate on disjoint subsets of the dataset. The construction of these subtrees can be parallelized, allowing multiple branches of the tree to be constructed simultaneously. This is particularly beneficial for deep trees or datasets with a large number of categorical values, where the algorithm can branch out significantly.</p>
-        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-      </div>
-      <div class="w3-panel w3-leftbar w3-light-grey">
-        <p>3. Data Partitioning: When splitting the dataset based on the best attribute, the partitioning step can also be parallelized. Each record in the dataset can be independently evaluated to determine which subset (or branch) it belongs to based on the splitting criterion. This process can be efficiently parallelized by distributing the data across multiple processors and performing the partitioning in parallel.</p>
+        <p>2. Construct priority queue: compute the shortest distance between vertexes in parallel.</p>
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
       </div>
@@ -154,25 +150,24 @@ body, html {
       <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Challenge</span></h5>
       <!-- <p>The Cafe was founded in blabla by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       <p>In addition to our full espresso and brew bar menu, we serve fresh made-to-order breakfast and lunch sandwiches, as well as a selection of sides and salads and other good stuff.</p> -->
-      <p>Though decision tree is well-studied as a machine learning algorithm, it contains many typical challenges when it comes to parallel implementation. There are many nuances in implementing large-scale parallel training of decision tree. At its core, the decision tree algorithm is sequential because each node split depends on the outcome of the previous one. This sequential dependency can make it difficult to fully parallelize the algorithm, especially in the early stages of tree construction where the choice of the root node and its immediate splits significantly influence the structure of the entire tree.</p>
-      <p>However, we can still parallelize some intermediate process</p>
+      <p>Despite being a well-studied shortest path graph search algorithm, parallel implementation of Dijkstra algorithm faces challenges:</p>
       <div class="w3-panel w3-leftbar w3-light-grey">
-        <p>Data Dependencies: When constructing a decision tree, splits at higher levels of the tree create data subsets that are processed independently at lower levels. While processing these subsets can be parallelized, the initial splits have a cascading effect, creating dependencies that dictate the flow of computation.</p> 
+        <p>Memory Access Characteristics: Graph search often exhibit irregular memory access patterns, as the pointer of a vertex is arbitrary distributed in the memory, showing limited temporal and spatial data locality.</p> 
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
       </div>
       <div class="w3-panel w3-leftbar w3-light-grey">
-        <p>Memory Access Characteristics: Decision trees often exhibit irregular memory access patterns, especially in datasets with categorical variables leading to variable-sized splits. This irregularity can reduce memory locality and efficiency. Additionally, the need to repeatedly scan the entire dataset for evaluating splits can lead to a high memory access to computation ratio.</p> 
+        <p>Divergent Execution: The path in graph have various length, some threads might exit early as the path involve less vertex.</p> 
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
       </div>
       <div class="w3-panel w3-leftbar w3-light-grey">
-        <p>Divergent Execution: The nature of decision tree learning can lead to divergent execution paths, especially in trees with varying depths across branches. This divergence can make workload distribution among parallel processors challenging, as some processors may idle while waiting for others to complete their tasks.</p> 
+        <p>Workload imbalance: The graph search algorithm is inherently workload imbalanced, as the number of edge connecting different vertex varies, dependent on the graph topology.</p> 
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
       </div>
       <div class="w3-panel w3-leftbar w3-light-grey">
-        <p>Workload imbalance: The decision tree is inherently workload imbalance, since the resultant tree might be imbalanced and the prediction process for each input will also vary depending on the depth of the corresponding node of that input. The imbalance work makes it difficult to obtain an ideal speedup when implemented on the GPU.</p> 
+        <p>Communication Overhead: there are constraints on the communication bandwidth in GPU and DPU if the data to transfer is too large. The synchronization between threads for updating the shortest path length also require inherent communication.</p> 
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
       </div>
@@ -191,13 +186,12 @@ body, html {
       <div class="w3-panel w3-leftbar w3-light-grey">
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-        The baseline goal for our project is to achieve a good speedup for distributed decision tree compared to the baseline sequential decision tree.
-        The goal that we hope to achieve is to see a near linear speedup for our distributed decision tree algorithm.
+        We plan to implement the two versions of Dijkstra Algorithm on two kinds of computer architecture.
       </div>
       <div class="w3-panel w3-leftbar w3-light-grey">
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-        The deliverables are some analysis of our parallel implementation of the decision tree algorithm against the baseline. Some profiling results from the machine and the discussion on our results. 
+        The deliverables are the CUDA implementation and the PIM implementation of the algorithms, and analysis of our parallel implementation of the two architecture with comparison. We will show speedup graphs and profiling results, and discuss the results. 
       </div>
       <!-- <img src="/coffeehouse.jpg" style="width:100%;max-width:1000px" class="w3-margin-top"> -->
       <!-- <p><strong>Opening hours:</strong> everyday from 6am to 5pm.</p>
@@ -210,18 +204,7 @@ body, html {
       <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Resource</span></h5>
       <!-- <p>The Cafe was founded in blabla by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       <p>In addition to our full espresso and brew bar menu, we serve fresh made-to-order breakfast and lunch sandwiches, as well as a selection of sides and salads and other good stuff.</p> -->
-      <p>The resource we need for this project is the GHC/PSC machine cluster, with openMP and MPI installed, and GPU core enabled.</p>
-      <p>We also found some papers discussing the distributed decision tree algorithm, which can be used as a reference.</p>
-      <div class="w3-panel w3-leftbar w3-light-grey">
-        <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8258011">Distributed Decision Tree 2.0</a>
-        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-      </div>
-      <div class="w3-panel w3-leftbar w3-light-grey">
-        <a href="https://dl.acm.org/doi/pdf/10.1145/2998476.2998478">Distributed Decision Tree</a>
-        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-      </div>
+      <p>The resource we need for this project is the GHC/PSC machine cluster, with openMP and MPI installed, and GPU core enabled. Also the access to the PIM system.</p>
       <!-- <img src="/coffeehouse.jpg" style="width:100%;max-width:1000px" class="w3-margin-top"> -->
       <!-- <p><strong>Opening hours:</strong> everyday from 6am to 5pm.</p>
       <p><strong>Address:</strong> 15 Adr street, 5015, NY</p> -->
@@ -236,26 +219,20 @@ body, html {
       <div class="w3-panel w3-leftbar w3-light-grey">
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-        <p>Week of March 24: </p>
-        <p>Setup the sequential version of the decision tree and choose the suitable dataset to run the program.</p>
-      </div>
-      <div class="w3-panel w3-leftbar w3-light-grey">
-        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
         <p>Week of March 31: </p>
-        <p>Finish and Optimize the sequential version of the decision tree, verify the result and use it as the baseline.</p>
+        <p>Develop the CUDA version of the Dijkstra Algorithm.</p>
       </div>
       <div class="w3-panel w3-leftbar w3-light-grey">
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
         <p>Week of April 7: </p>
-        <p>Develop the parallel version of the decision tree algorithm.</p>
+        <p>Finish develop the CUDA version of the Dijkstra Algorithm, and start the PIM version of the Dijkstra Algorithm.</p>
       </div>
       <div class="w3-panel w3-leftbar w3-light-grey">
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
         <p>Week of April 14: </p>
-        <p>Continue develop the parallel version of the decision tree algorithm.</p>
+        <p>Finish the PIM version of the Dijkstra Algorithm.</p>
       </div>
       <div class="w3-panel w3-leftbar w3-light-grey">
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
