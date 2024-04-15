@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>15618 Project</title>
+<title>Progress Report</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-----(to replace with our own CSS style sheet)------>
@@ -58,19 +58,19 @@ body, html {
 <div class="w3-top">
   <div class="w3-row w3-padding w3-black">
     <div class="w3-col s3">
-      <a href="#about" class="w3-button w3-block w3-black">Summary</a>
+      <a href="#summary" class="w3-button w3-block w3-black">Summary</a>
     </div>
     <div class="w3-col s3">
-      <a href="#menu" class="w3-button w3-block w3-black">Background</a>
+      <a href="#workdone" class="w3-button w3-block w3-black">Work Done</a>
     </div>
     <div class="w3-col s3">
-        <a href="#challenge" class="w3-button w3-block w3-black">Challenge</a>
+      <a href="#goal" class="w3-button w3-block w3-black">Goal and Deliverable</a>
+    </div>
+    <div class="w3-col s3">
+        <a href="#showcase" class="w3-button w3-block w3-black">Show Case</a>
       </div>
     <div class="w3-col s3">
-      <a href="#where" class="w3-button w3-block w3-black">Goal and Deliverable</a>
-    </div>
-    <div class="w3-col s3">
-        <a href="#resource" class="w3-button w3-block w3-black">Resource</a>
+        <a href="#concern" class="w3-button w3-block w3-black">Concern</a>
       </div>
     <div class="w3-col s3">
         <a href="#schedule" class="w3-button w3-block w3-black">Schedule</a>
@@ -84,7 +84,7 @@ body, html {
     <span class="w3-tag">Open from 6am to 5pm</span>
   </div> -->
   <div class="w3-display-middle w3-center">
-    <span class="w3-text-white" style="font-size:90px">15618 Project</span>
+    <span class="w3-text-white" style="font-size:90px">15618 Project - Progress Report</span>
   </div>
   <!-- <div class="w3-display-bottomright w3-center w3-padding-large">
     <span class="w3-text-white">15 Adr street, 5015</span>
@@ -100,7 +100,7 @@ body, html {
 <div class="w3-sand w3-grayscale w3-large">
 
 <!-- About Container -->
-<div class="w3-container" id="about">
+<div class="w3-container" id="summary">
   <div class="w3-content" style="max-width:700px">
     <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Summary</span></h5>
     <!-- <p>The Cafe was founded in blabla by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -111,11 +111,6 @@ body, html {
       <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
       <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
     </div>
-    <div class="w3-panel w3-leftbar w3-light-grey">
-      <a href="./progress.html">link for the progress report</a>
-    <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-    <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-  </div>
     <!-- <img src="/coffeehouse.jpg" style="width:100%;max-width:1000px" class="w3-margin-top"> -->
     <!-- <p><strong>Opening hours:</strong> everyday from 6am to 5pm.</p>
     <p><strong>Address:</strong> 15 Adr street, 5015, NY</p> -->
@@ -123,93 +118,54 @@ body, html {
 </div>
 
 <!-- Menu Container -->
-<div class="w3-container" id="menu">
+<div class="w3-container" id="workdone">
     <div class="w3-content" style="max-width:700px">
-      <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Background</span></h5>
+      <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Work Done</span></h5>
       <!-- <p>The Cafe was founded in blabla by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       <p>In addition to our full espresso and brew bar menu, we serve fresh made-to-order breakfast and lunch sandwiches, as well as a selection of sides and salads and other good stuff.</p> -->
-      <p>The Dijkstra algorithm finds the shortest path from one vertex to all other vertices, which is widely used in network routing protocols and is foundational for many types of network analysis.</p>
+      <p>Currently, we have implement the sequential version of the Dijkstra's algorithm using the CPU, and a initial version of the GPU version of the Dijkstra's algorithm.</p>
 
-      <p>The PIM system we used for comparison with GPU, is a process-in-memory system that having multiple data process unit (DPU) located near the memory. This type of architecture aim for improving the performance by reducing the data movement within the cache hierarchy. Since the DPU is located close to the memory, the network latency for the memory access can be also reduced. </p>
+      <p>There is a script to generate a random graph, and assigning a weight on each edge. The CPU and GPU version of the Dijkstra's algorithm will read the graph and generate the shortest path length from a starting point to all other points.</p>
+      
+      <p>The GPU and CPU version have the same result, and thus our GPU version of the Dijkstra's algorithm is correct.</p>
     
-      <p>Here are several aspects of the algorithm that can benefit greatly from parallelism:</p>
-      <div class="w3-panel w3-leftbar w3-light-grey">
-        <p>1. Handling each destination vertex: each thread compute the shortest distance between a vertex and the source. </p>
-        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-      </div>
-      <div class="w3-panel w3-leftbar w3-light-grey">
-        <p>2. Construct priority queue: compute the shortest distance between vertexes in parallel.</p>
-        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-      </div>
-      <img src="./algo.png" style="width:100%;max-width:1000px" class="w3-margin-top">
-      <!-- <img src="/coffeehouse.jpg" style="width:100%;max-width:1000px" class="w3-margin-top"> -->
-      <!-- <p><strong>Opening hours:</strong> everyday from 6am to 5pm.</p>
-      <p><strong>Address:</strong> 15 Adr street, 5015, NY</p> -->
-    </div>
-  </div>
-   
-  <div class="w3-container" id="challenge">
-    <div class="w3-content" style="max-width:700px">
-      <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Challenge</span></h5>
-      <!-- <p>The Cafe was founded in blabla by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <p>In addition to our full espresso and brew bar menu, we serve fresh made-to-order breakfast and lunch sandwiches, as well as a selection of sides and salads and other good stuff.</p> -->
-      <p>Despite being a well-studied shortest path graph search algorithm, parallel implementation of Dijkstra algorithm faces challenges:</p>
-      <div class="w3-panel w3-leftbar w3-light-grey">
-        <p>Memory Access Characteristics: Graph search often exhibit irregular memory access patterns, as the pointer of a vertex is arbitrary distributed in the memory, showing limited temporal and spatial data locality.</p> 
-        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-      </div>
-      <div class="w3-panel w3-leftbar w3-light-grey">
-        <p>Divergent Execution: The path in graph have various length, some threads might exit early as the path involve less vertex.</p> 
-        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-      </div>
-      <div class="w3-panel w3-leftbar w3-light-grey">
-        <p>Workload imbalance: The graph search algorithm is inherently workload imbalanced, as the number of edge connecting different vertex varies, dependent on the graph topology.</p> 
-        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-      </div>
-      <div class="w3-panel w3-leftbar w3-light-grey">
-        <p>Communication Overhead: there are constraints on the communication bandwidth in GPU and DPU if the data to transfer is too large. The synchronization between threads for updating the shortest path length also require inherent communication.</p> 
-        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-      </div>
-      <!-- <img src="/coffeehouse.jpg" style="width:100%;max-width:1000px" class="w3-margin-top"> -->
-      <!-- <p><strong>Opening hours:</strong> everyday from 6am to 5pm.</p>
-      <p><strong>Address:</strong> 15 Adr street, 5015, NY</p> -->
     </div>
   </div>
 
 <!-- Contact/Area Container -->
-<div class="w3-container" id="where">
+<div class="w3-container" id="goal">
     <div class="w3-content" style="max-width:700px">
       <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Goal and Deliverable</span></h5>
       <!-- <p>The Cafe was founded in blabla by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       <p>In addition to our full espresso and brew bar menu, we serve fresh made-to-order breakfast and lunch sandwiches, as well as a selection of sides and salads and other good stuff.</p> -->
-      <div class="w3-panel w3-leftbar w3-light-grey">
-        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-        We plan to implement the two versions of Dijkstra Algorithm on two kinds of computer architecture.
-      </div>
-      <div class="w3-panel w3-leftbar w3-light-grey">
-        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-        The deliverables are the CUDA implementation and the PIM implementation of the algorithms, and analysis of our parallel implementation of the two architecture with comparison. We will show speedup graphs and profiling results, and discuss the results. 
-      </div>
+      <p>Our basic goal is to implement the GPU and PIM version of the Dijkstra's algorithm. We believe we have enough time to develop the PIM version of the Dijkstra's algorithm, and thus being able to finish the PIM version of the Dijkstra's algorithm.</p>
+      <p>If there is still more time after we done our PIM version of the Dijkstra's algorithm, then we can use the openMP to further improve the speed of the algorithm.</p>
+      <p>The deliverables are the CUDA implementation and the PIM implementation of the algorithms, and analysis of our parallel implementation of the two architecture with comparison. We will show speedup graphs and profiling results, and discuss the results. </p>
       <!-- <img src="/coffeehouse.jpg" style="width:100%;max-width:1000px" class="w3-margin-top"> -->
       <!-- <p><strong>Opening hours:</strong> everyday from 6am to 5pm.</p>
       <p><strong>Address:</strong> 15 Adr street, 5015, NY</p> -->
     </div>
   </div>
 
-  <div class="w3-container" id="resource">
+  <div class="w3-container" id="showcase">
     <div class="w3-content" style="max-width:700px">
-      <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Resource</span></h5>
+      <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Show Case</span></h5>
       <!-- <p>The Cafe was founded in blabla by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       <p>In addition to our full espresso and brew bar menu, we serve fresh made-to-order breakfast and lunch sandwiches, as well as a selection of sides and salads and other good stuff.</p> -->
-      <p>The resource we need for this project is the GHC/PSC machine cluster, with openMP and MPI installed, and GPU core enabled. Also the access to the PIM system.</p>
+      <p>In our poster, we will include the introduction to the PIM architecture, since it is a in-research architecture and not a commonly used architecture. We will also introduce the benefit of the PIM architecture.</p>
+      <p>We also include the scaling graph of the algorithm on each machine, and some performance statistic of the three version of the algorithm. From the statistic, we can include the analysis of each architecture for the algorithm.</p>
+      <!-- <img src="/coffeehouse.jpg" style="width:100%;max-width:1000px" class="w3-margin-top"> -->
+      <!-- <p><strong>Opening hours:</strong> everyday from 6am to 5pm.</p>
+      <p><strong>Address:</strong> 15 Adr street, 5015, NY</p> -->
+    </div>
+  </div>
+
+  <div class="w3-container" id="concern">
+    <div class="w3-content" style="max-width:700px">
+      <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Concern</span></h5>
+      <!-- <p>The Cafe was founded in blabla by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <p>In addition to our full espresso and brew bar menu, we serve fresh made-to-order breakfast and lunch sandwiches, as well as a selection of sides and salads and other good stuff.</p> -->
+      <p>Our main concern is that the performance of the GPU and PIM version of the Dijkstra's algorithm will not be out-perform the CPU sequential version of the algorithm. But it might be the case, since using the GPU version will complicate the algorithm, and might introduce more overhead than the speedup.</p>
       <!-- <img src="/coffeehouse.jpg" style="width:100%;max-width:1000px" class="w3-margin-top"> -->
       <!-- <p><strong>Opening hours:</strong> everyday from 6am to 5pm.</p>
       <p><strong>Address:</strong> 15 Adr street, 5015, NY</p> -->
@@ -224,32 +180,50 @@ body, html {
       <div class="w3-panel w3-leftbar w3-light-grey">
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-        <p>Week of March 31: </p>
-        <p>Develop the CUDA version of the Dijkstra Algorithm.</p>
+        <p>Starting from March 31: </p>
+        <p>Develop the CUDA version of the Dijkstra Algorithm. (Xialin)</p>
       </div>
       <div class="w3-panel w3-leftbar w3-light-grey">
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-        <p>Week of April 7: </p>
-        <p>Finish develop the CUDA version of the Dijkstra Algorithm, and start the PIM version of the Dijkstra Algorithm.</p>
+        <p>Starting from April 7: </p>
+        <p>Continue develop the GPU version of the Dijkstra Algorithm. (Xialin)</p>
       </div>
       <div class="w3-panel w3-leftbar w3-light-grey">
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-        <p>Week of April 14: </p>
-        <p>Finish the PIM version of the Dijkstra Algorithm.</p>
+        <p>Starting from April 14: </p>
+        <p>Improve the GPU version of the Dijkstra Algorithm. (Kedi)</p>
       </div>
       <div class="w3-panel w3-leftbar w3-light-grey">
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-        <p>Week of April 21: </p>
-        <p>Collect experimental data and compare the performance. Finish writing the final report.</p>
+        <p>Starting from April 14: </p>
+        <p>Start the PIM version of the Dijkstra Algorithm. (Xialin)</p>
+      </div>
+      <div class="w3-panel w3-leftbar w3-light-grey">
+        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
+        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
+        <p>Starting from April 18: </p>
+        <p>Continue working on PIM version of the Dijkstra Algorithm. (Xialin and Kedi)</p>
+      </div>
+      <div class="w3-panel w3-leftbar w3-light-grey">
+        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
+        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
+        <p>Starting from April 21: </p>
+        <p>Finish the PIM version. (Xialin)</p>
+      </div>
+      <div class="w3-panel w3-leftbar w3-light-grey">
+        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
+        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
+        <p>Starting from April 25: </p>
+        <p>Collect experimental data and analysis. Finish writing the final report and poster. (Xialin and Kedi)</p>
       </div>
       <div class="w3-panel w3-leftbar w3-light-grey">
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
         <p>May 5: </p>
-        <p>Final Project Report Due.</p>
+        <p>Final Project Report Due. (Xialin and Kedi)</p>
       </div>
       <!-- <img src="/coffeehouse.jpg" style="width:100%;max-width:1000px" class="w3-margin-top"> -->
       <!-- <p><strong>Opening hours:</strong> everyday from 6am to 5pm.</p>
