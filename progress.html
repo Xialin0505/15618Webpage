@@ -64,6 +64,9 @@ body, html {
       <a href="#workdone" class="w3-button w3-block w3-black">Work Done</a>
     </div>
     <div class="w3-col s3">
+      <a href="#result" class="w3-button w3-block w3-black">Some Result</a>
+    </div>
+    <div class="w3-col s3">
       <a href="#goal" class="w3-button w3-block w3-black">Goal and Deliverable</a>
     </div>
     <div class="w3-col s3">
@@ -128,6 +131,19 @@ body, html {
       <p>There is a script to generate a random graph, and assigning a weight on each edge. The CPU and GPU version of the Dijkstra's algorithm will read the graph and generate the shortest path length from a starting point to all other points.</p>
       
       <p>The GPU and CPU version have the same result, and thus our GPU version of the Dijkstra's algorithm is correct.</p>
+    
+    </div>
+  </div>
+
+  <div class="w3-container" id="result">
+    <div class="w3-content" style="max-width:700px">
+      <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Some Result</span></h5>
+      <!-- <p>The Cafe was founded in blabla by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <p>In addition to our full espresso and brew bar menu, we serve fresh made-to-order breakfast and lunch sandwiches, as well as a selection of sides and salads and other good stuff.</p> -->
+      <p>We implemented the GPU-parallel version using CUDA, and ran it on GHC machine. Here are the runtime results of GPU compared to CPU.</p>
+      <p>The GPU version works well when the graph is more dense.</p>
+      
+      <img src="./progress_result.png" style="width:100%;max-width:1000px" class="w3-margin-top">
     
     </div>
   </div>
