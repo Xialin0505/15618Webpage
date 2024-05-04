@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>15618 Project</title>
+<title>Progress Report</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-----(to replace with our own CSS style sheet)------>
@@ -58,22 +58,19 @@ body, html {
 <div class="w3-top">
   <div class="w3-row w3-padding w3-black">
     <div class="w3-col s3">
-      <a href="#about" class="w3-button w3-block w3-black">Summary</a>
+      <a href="#summary" class="w3-button w3-block w3-black">Summary</a>
     </div>
     <div class="w3-col s3">
-      <a href="#menu" class="w3-button w3-block w3-black">Background</a>
-    </div>
-    <div class="w3-col s3">
-        <a href="#challenge" class="w3-button w3-block w3-black">Challenge</a>
+        <a href="#background" class="w3-button w3-block w3-black">Background</a>
       </div>
     <div class="w3-col s3">
-      <a href="#where" class="w3-button w3-block w3-black">Goal and Deliverable</a>
+      <a href="#implementation" class="w3-button w3-block w3-black">Implementation</a>
     </div>
     <div class="w3-col s3">
-        <a href="#resource" class="w3-button w3-block w3-black">Resource</a>
-      </div>
+      <a href="#result" class="w3-button w3-block w3-black">Results</a>
+    </div>
     <div class="w3-col s3">
-        <a href="#schedule" class="w3-button w3-block w3-black">Schedule</a>
+        <a href="#analysis" class="w3-button w3-block w3-black">Analysis</a>
       </div>
   </div>
 </div>
@@ -100,22 +97,27 @@ body, html {
 <div class="w3-sand w3-grayscale w3-large">
 
 <!-- About Container -->
-<div class="w3-container" id="about">
+<div class="w3-container" id="summary">
   <div class="w3-content" style="max-width:700px">
     <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Summary</span></h5>
     <!-- <p>The Cafe was founded in blabla by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
     <p>In addition to our full espresso and brew bar menu, we serve fresh made-to-order breakfast and lunch sandwiches, as well as a selection of sides and salads and other good stuff.</p> -->
-    <p>We are going to implement a parallel version of Dijkstra algorithm on both PIM system and GPU, and compare between two kind of architecture on the Graph workload.</p>
+    <p>We implemented Dijkstra's algorithm in parallel on a GPU and a PIM system to compare their performance on graph workloads. This report discusses the implementations, experiments, and insights gained from comparing these two computing paradigms.</p>
     <div class="w3-panel w3-leftbar w3-light-grey">
         <a href="https://github.com/Xialin0505/15618Project/tree/main">GitHub link for the project</a>
       <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
       <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
     </div>
     <div class="w3-panel w3-leftbar w3-light-grey">
-      <a href="./progress.html">link for the progress report</a>
-    <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-    <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-  </div>
+        <a href="./progress.html">link for the progress report</a>
+      <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
+      <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
+    </div>
+    <div class="w3-panel w3-leftbar w3-light-grey">
+        <a href="./proposal.html">link for the proposal report</a>
+      <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
+      <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
+    </div>
     <!-- <img src="/coffeehouse.jpg" style="width:100%;max-width:1000px" class="w3-margin-top"> -->
     <!-- <p><strong>Opening hours:</strong> everyday from 6am to 5pm.</p>
     <p><strong>Address:</strong> 15 Adr street, 5015, NY</p> -->
@@ -123,139 +125,245 @@ body, html {
 </div>
 
 <!-- Menu Container -->
-<div class="w3-container" id="menu">
+<div class="w3-container" id="background">
     <div class="w3-content" style="max-width:700px">
       <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Background</span></h5>
       <!-- <p>The Cafe was founded in blabla by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       <p>In addition to our full espresso and brew bar menu, we serve fresh made-to-order breakfast and lunch sandwiches, as well as a selection of sides and salads and other good stuff.</p> -->
-      <p>The Dijkstra algorithm finds the shortest path from one vertex to all other vertices, which is widely used in network routing protocols and is foundational for many types of network analysis.</p>
+      <p>Dijkstra algorithm is crucial for finding the shortest path in graphs, applicable in various domains such as networking and geographic information systems.</p>
 
-      <p>The PIM system we used for comparison with GPU, is a process-in-memory system that having multiple data process unit (DPU) located near the memory. This type of architecture aim for improving the performance by reducing the data movement within the cache hierarchy. Since the DPU is located close to the memory, the network latency for the memory access can be also reduced. </p>
+      <p>The PIM architecture, characterized by its integration of processing units near memory, promises reduced data movement and latency, potentially benefiting data-intensive applications like graph processing.</p>
     
-      <p>Here are several aspects of the algorithm that can benefit greatly from parallelism:</p>
       <div class="w3-panel w3-leftbar w3-light-grey">
-        <p>1. Handling each destination vertex: each thread compute the shortest distance between a vertex and the source. </p>
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-      </div>
+        <p>PIM Architecture</p>
+        <p>In our project, we implement the Dijkstra's algorithm on a special architecture named Process-in-Memory (PIM) architecture.
+        Which the PIM system embedded multiple Process Units (PE) within the DRAM module of computer architecture.
+        Below figure shows the architecture of the UPMEM PIM system, which is one of the leading PIM architecture.
+        t it composed by host CPU to provide management to the PIM modules, and the DRAM main memory, as well as PIM-enabled Memory.
+        There are multiple PIM chips on the DIMM with each chip includes 8 DRAM Processing Unit (DPU).
+        Each DPU can access 64 MB DRAM bank, and each PIM chip has its own stack and heap for storing data and fast memory access.</p>
+            <img src="./UPMEM_Arch.jpeg" style="width:100%;max-width:1000px" class="w3-margin-top">
+        </div>
+
       <div class="w3-panel w3-leftbar w3-light-grey">
-        <p>2. Construct priority queue: compute the shortest distance between vertexes in parallel.</p>
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
+        <p>CPU Architecture</p>
+        <p>The CPU architecture aims to maximum the performance for general workloads, and the performance of CPU is bottlenecked by the memory access latency.
+        Modern CPU architecture implements a lot of techniques to hide the memory access latency, by optimizations of prefetching and out-of-order execution to hide DRAM latency,
+        as well as the exploitation of memory-level and thread-level parallelism. However, due to the random access pattern of graph topology, 
+        the prefetching does not work effectively and thus suffering from the memory access latency.</p>
       </div>
-      <img src="./algo.png" style="width:100%;max-width:1000px" class="w3-margin-top">
-      <!-- <img src="/coffeehouse.jpg" style="width:100%;max-width:1000px" class="w3-margin-top"> -->
-      <!-- <p><strong>Opening hours:</strong> everyday from 6am to 5pm.</p>
-      <p><strong>Address:</strong> 15 Adr street, 5015, NY</p> -->
+
+      <div class="w3-panel w3-leftbar w3-light-grey">
+        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
+        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
+        <p>GPU Architecture</p>
+        <p>GPU is designed specifically for the dense data computation, with a high memory access bandwidth and parallel memory access capability to reduce the memory access latency.
+        It exploit the SIMT execution model, which capability to highly parallel, independent workload. CPU is designed for maximize parallelism, 
+        memory bandwidth and throughput for wide range of parallel computing workload.</p>
+      </div>
+
+      <div class="w3-panel w3-leftbar w3-light-grey">
+        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
+        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
+        <p>Algorithm Description</p>
+        <p>Dijkstra's algorithm works by iteratively updating the shortest paths to all vertices from a given source. 
+        The algorithm has wide application in the real-world, for instance the network routing protocols, 
+        which Dijkstra's algorithm is foundational for many types of network analysis. 
+        The pseudo-code below demonstrates the naive implementation for the Dijkstra algorithm.</p>
+
+        <img src="./algo.png" style="width:100%;max-width:1000px" class="w3-margin-top">
+
+        <p>The Dijkstra's algorithm take a graph topology that having the path cost between two vertexes, represented as a 2D array, 
+            and iteratively compute the shortest path length between the starting vertex and all other vertexes in the graph. 
+            The output is the shortest path length between all vertexes and the start vertex.</p>
+        
+        <p>The key operations of the Dijkstra's algorithm include:</p>
+        <ol>
+            <li>Updating distance estimates for vertices adjacent to the current vertex.</li>
+            <li>Selecting the next vertex with the shortest tentative distance.</li>
+        </ol>
+
+        <p>The updating distance is computational heavy, since all the neighboring vertex of the current vertex has to update its shortest path, 
+            and therefore all the vertexes has to be access sequentially in randomly access pattern, 
+            which will be bottlenecked by the memory hierarchy in the CPU.</p>
+        
+        <p>Also, finding the vertex with the shortest tentative distance require traversing all the vertex to compare their path, 
+            this performance has to be O(N) or the best performance O(lgN) if using priority queue.</p>
+
+        <p>The two operations are inherently sequentially and therefore, we keep the sequentially execution of the two step, while implementing each step using the special characteristic of GPU and PIM to improve the performance.</p>
+        
+    </div>
+
+    <div class="w3-panel w3-leftbar w3-light-grey">
+        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
+        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
+        <p>Graph Characteristics and Parallelization Opportunities</p>
+        <p>Graph algorithms like Dijkstra’s are challenging for parallel systems due to the inherently sequential way to find the shortest path 
+            vertex and the update of the tentative distance of each adjacent vertex, as well as the poor data locality, 
+            irregular memory access pattern and workload imbalance:</p>
+        
+        <ol>
+            <li>Poor data locality due to the irregular memory access patterns because of graph topology.</li>
+            <li>Workload imbalance caused by non-uniform graph structures.</li>
+        </ol>
+
+        <p>Poor data locality.</p>
+        <p>The PIM architecture is specifically designed for the irregular memory access, which aims to break the Von Neumann bottleneck by integrating processing capabilities directly within or near memory chips to minimize the data movement between CPU and memory. 
+        The irregular memory access of the graph topology makes the prefetch hard and less effective in the current CPU architecture. 
+        The GPU architecture have high bandwidth to the main memory, and therefore the latency in memory access can be reduced by the design of GPU architecture.  </p>
+
+        <p>Workload imbalance.</p>
+        <p>The GPU using SIMT execution model, which is sensitive to the workload imbalance. However, when the density of the graph is high, the workload imbalance can be mitigated and thus we can see that GPU outperform the CPU when the graph is fully connected or having a high density. 
+        The PIM architecture has limited threading and a simple process unit architecture, and therefore is less suffered by the workload imbalance.</p>
+
+        </div>
     </div>
   </div>
-   
-  <div class="w3-container" id="challenge">
+
+  <div class="w3-container" id="implementation">
     <div class="w3-content" style="max-width:700px">
-      <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Challenge</span></h5>
+      <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Implementation</span></h5>
       <!-- <p>The Cafe was founded in blabla by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       <p>In addition to our full espresso and brew bar menu, we serve fresh made-to-order breakfast and lunch sandwiches, as well as a selection of sides and salads and other good stuff.</p> -->
-      <p>Despite being a well-studied shortest path graph search algorithm, parallel implementation of Dijkstra algorithm faces challenges:</p>
+     
+      <ol>
+        <li>Languages/APIs: C++ with CUDA for GPU and C with API from the UPMEM SDK for PIM architecture.</li>
+        <li>Hardware: Tests conducted on GHC/PSC clusters with GPUs and PIM tests on UPMEM platforms.</li>
+      </ol>
+
       <div class="w3-panel w3-leftbar w3-light-grey">
-        <p>Memory Access Characteristics: Graph search often exhibit irregular memory access patterns, as the pointer of a vertex is arbitrary distributed in the memory, showing limited temporal and spatial data locality.</p> 
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-      </div>
-      <div class="w3-panel w3-leftbar w3-light-grey">
-        <p>Divergent Execution: The path in graph have various length, some threads might exit early as the path involve less vertex.</p> 
-        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-      </div>
-      <div class="w3-panel w3-leftbar w3-light-grey">
-        <p>Workload imbalance: The graph search algorithm is inherently workload imbalanced, as the number of edge connecting different vertex varies, dependent on the graph topology.</p> 
-        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-      </div>
-      <div class="w3-panel w3-leftbar w3-light-grey">
-        <p>Communication Overhead: there are constraints on the communication bandwidth in GPU and DPU if the data to transfer is too large. The synchronization between threads for updating the shortest path length also require inherent communication.</p> 
-        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-      </div>
-      <!-- <img src="/coffeehouse.jpg" style="width:100%;max-width:1000px" class="w3-margin-top"> -->
-      <!-- <p><strong>Opening hours:</strong> everyday from 6am to 5pm.</p>
-      <p><strong>Address:</strong> 15 Adr street, 5015, NY</p> -->
+        <p>GPU Implementation</p>
+        <p>The GPU vertion of the Dijkstra's algorithm composes of two kernel, which the first kernel is using parallel 
+            reduction to find the vertex with the shortest path in the current iteration.</p>
+            <img src="./GPUkernel1-1.png" style="width:100%;max-width:1000px" class="w3-margin-top">
+        <p>The above code block is the first half of the shortest vertex finding kernel, which to maximize the performance, 
+            each thread load a portion of the current distance collaboratively, 
+            then parallelly find the vertex with the shortest path.</p>
+
+        <img src="./GPUkernel1-2.png" style="width:100%;max-width:1000px" class="w3-margin-top">
+        
+        <p>Once the current vertex with shortest path is found, the second kernel is launched, to update of each vertex in parallel. 
+            Each thread update the shortest path for one vertex to fully utilize the computational power of GPU.</p>
+        
+        <img src="./GPUkernel2.png" style="width:100%;max-width:1000px" class="w3-margin-top">
+        <p>Since the two kernels has to run in sequential, and therefore we tried to improve the performance for each kernel by mapping each vertex to thread of the GPU to perform parallel reduction and update of shortest path.</p>
+
+        </div>
+    
+        <div class="w3-panel w3-leftbar w3-light-grey">
+            <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
+            <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
+            <p>PIM Implementation</p>
+            <p>The PIM module and the host is highly seperated in the term of memory. Therefore, the host need to first load the graph into the DPU's heap and the result will be stored on the DPU's stack and transfer back to the host once the DPUs finishes its execution.</p>
+                
+            <p>TWe define a data structure to store the shortest path length on the stack of the DPU, and the heap address is stored as a uint32_t value, which denote the pointer pointing to the start of the graph.</p>
+            <img src="./PIM-1.png" style="width:100%;max-width:1000px" class="w3-margin-top">
+
+            <p>The DPU directly access the heap and therefore reduce the latency for the randomly access of the graph topology. There is spetial API for access the heap of the DPU.</p>
+            <img src="./PIM-2.png" style="width:100%;max-width:1000px" class="w3-margin-top">
+            
+            <p>However, there is limitation for the DPU when we try to parallel the work among the DPU. Specifically, the heap size and the stack size is too small to implement the parallel version of the Dijkstra's algorithm. 
+                The thread in DPU cannot share the heap, which thus all the intermediate data has to be stored on the stack, which is merely 64 KB. 
+                The stack size is only able to process the graph with 16 vertexes, which is not particularly useful. 
+                And due to the highly separated characteristic of threading in DPU and the limited stack size, we are not able to implement the multi-threading in DPU.</p>
+
+            <p>Therefore, the DPU version of the Dijkstra's algorithm follows the sequential execution version, with the close memory processing to reduce memory access latency.</p>
+
+        </div>
+    
     </div>
   </div>
 
 <!-- Contact/Area Container -->
-<div class="w3-container" id="where">
+<div class="w3-container" id="result">
     <div class="w3-content" style="max-width:700px">
-      <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Goal and Deliverable</span></h5>
+      <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Results</span></h5>
       <!-- <p>The Cafe was founded in blabla by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       <p>In addition to our full espresso and brew bar menu, we serve fresh made-to-order breakfast and lunch sandwiches, as well as a selection of sides and salads and other good stuff.</p> -->
+      <p>The statistic we used for performance analysis is the execution time for the CPU, GPU and PIM, and the number of cycle that can be gathered from the CPU and PIM to analysis the benefit of near-data computing.</p>
+      
       <div class="w3-panel w3-leftbar w3-light-grey">
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-        We plan to implement the two versions of Dijkstra Algorithm on two kinds of computer architecture.
-      </div>
-      <div class="w3-panel w3-leftbar w3-light-grey">
+        <p>CPU baseline result</p>
+        <img src="./CPUresult.png" style="width:100%;max-width:1000px" class="w3-margin-top">
+        <p>For the CPU baseline, we measure the computation time with the number of cycle altogether to identify the bottleneck of the sequential version of the Dijkstra's algorithm. 
+            The cycle for the 1024 vertex suddenly increased by a large amount compared to the 64 vertex which fit into the cache. 
+            Therefore, this result clearly indicate that the cache miss due to the random access pattern and the large graph cause the CPU to wait for memory access and thus drastically increase the total cycle for execution.</p>
+        <p>Therefore, we hypothesis that the GPU architecture that are designed for large data set computing, with high bandwidth to the main memory can mitigate the memory access latency. 
+            The PIM system, reduce the memory access latency by placing the Process Unit close to the memory, which can also mitigate the memory access latency.</p>
+
+        </div>
+
+        <div class="w3-panel w3-leftbar w3-light-grey">
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-        The deliverables are the CUDA implementation and the PIM implementation of the algorithms, and analysis of our parallel implementation of the two architecture with comparison. We will show speedup graphs and profiling results, and discuss the results. 
-      </div>
-      <!-- <img src="/coffeehouse.jpg" style="width:100%;max-width:1000px" class="w3-margin-top"> -->
-      <!-- <p><strong>Opening hours:</strong> everyday from 6am to 5pm.</p>
-      <p><strong>Address:</strong> 15 Adr street, 5015, NY</p> -->
+        <p>GPU result</p>
+        <img src="./GPUresult.png" style="width:100%;max-width:1000px" class="w3-margin-top">
+        <p>Due to the SIMT execution model that is specifically designed for dense data computing, the GPU outperform the CPU when the graph is dense. 
+            Since the CPU only access each vertex sequentially while the GPU is able to update the vertex in parallel, 
+            the benefit of parallelism outweighed the overhead of launching the kernel in GPU when performing Dijkstra's algorithm on a densely connected graph.</p>
+        <img src="./GPUspeedup.png" style="width:100%;max-width:1000px" class="w3-margin-top">
+        <p>As Figure 2 shows, when the graph size is small and is sparsely connected, the GPU is slower than the CPU version of the code, since the overhead of the GPU code is too large compare to the speedup of parallelism. 
+            However, when the graph is large and fully connected, the GPU can leverage its computation power and the high bandwidth for memory access, and eventually, 
+            the speedup of GPU version reach 2x times compared to the CPU.</p>
+
+        </div>
+
+        <div class="w3-panel w3-leftbar w3-light-grey">
+            <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
+            <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
+            <p>PIM result</p>
+            <img src="./PIMresult.png" style="width:100%;max-width:1000px" class="w3-margin-top">
+            <p>As the table demonstrated, the DPU performance does not benefit by the near-data computing. Although the DPU is located near the DRAM and having the short interconnection between DPU and the DRAM, 
+                the less powerful DPU processing unit architecture compared to the highly optimized CPU result in the under-performance of the DPU. 
+                We expect less cycle needed for the DPU due to the easiness of DPU to access to the main memory, however, both execution time and the cycle of DPU have a large figure.</p>
+            <img src="./PIMplot.png" style="width:100%;max-width:1000px" class="w3-margin-top">
+            <p>As the plot shows, the PIM execution time increase drastically with the graph size, which is due to the large number of memory access operation and arithmetic due to the large graph size, 
+                yet the simple processing unit architecture does not benefit from the any optimization such as out-of-order execution and memory level parallelism implemented in modern CPU, 
+                and thus result in the bad performance of the DPU. </p>
+    
+            </div>
+
+      
     </div>
   </div>
 
-  <div class="w3-container" id="resource">
+  <div class="w3-container" id="analysis">
     <div class="w3-content" style="max-width:700px">
-      <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Resource</span></h5>
-      <!-- <p>The Cafe was founded in blabla by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <p>In addition to our full espresso and brew bar menu, we serve fresh made-to-order breakfast and lunch sandwiches, as well as a selection of sides and salads and other good stuff.</p> -->
-      <p>The resource we need for this project is the GHC/PSC machine cluster, with openMP and MPI installed, and GPU core enabled. Also the access to the PIM system.</p>
-      <!-- <img src="/coffeehouse.jpg" style="width:100%;max-width:1000px" class="w3-margin-top"> -->
-      <!-- <p><strong>Opening hours:</strong> everyday from 6am to 5pm.</p>
-      <p><strong>Address:</strong> 15 Adr street, 5015, NY</p> -->
+      <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Analysis</span></h5>
+      <div class="w3-panel w3-leftbar w3-light-grey">
+        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
+        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
+        <p>Challenges</p>
+        <ol>
+            <li>Divergent Execution: Both architectures exhibited issues with path length variability affecting thread execution efficiency.</li>
+            <li>Workload Imbalance: Non-uniform graph structures led to significant load imbalance, impacting overall performance.</li>
+            <li>Low data locality: The random access pattern of the graph topology exhibit low data locality, and therefore the cache miss and memory access latency is the bottleneck of the performance.</li>
+        </ol>
+
+        </div>
+
+      <div class="w3-panel w3-leftbar w3-light-grey">
+        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
+        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
+        <p>Comparative Analysis</p>
+        <p>GPU vs. PIM:</p>
+        <p>While GPU excelled in highly parallelizable tasks, its performance was bottlenecked by memory-intensive operations, a domain where PIM is expected to perform better due to its architecture. 
+            However, in the reality, since the DPU module is primitive and does not have the sophisticate optimization architecture that CPU generally have.
+            The DPU have much worse performance than the CPU. In addition, due to the small stack and heap size, and the limited parallelism of the DPU, 
+            the parallel version of the Dikstra's algorithm cannot be implemented on DPU, which further worsen the DPU performance.</p>
+
+        </div>
     </div>
   </div>
 
-  <div class="w3-container" id="schedule">
-    <div class="w3-content" style="max-width:700px">
-      <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Schedule</span></h5>
-      <!-- <p>The Cafe was founded in blabla by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <p>In addition to our full espresso and brew bar menu, we serve fresh made-to-order breakfast and lunch sandwiches, as well as a selection of sides and salads and other good stuff.</p> -->
-      <div class="w3-panel w3-leftbar w3-light-grey">
-        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-        <p>Week of March 31: </p>
-        <p>Develop the CUDA version of the Dijkstra Algorithm.</p>
-      </div>
-      <div class="w3-panel w3-leftbar w3-light-grey">
-        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-        <p>Week of April 7: </p>
-        <p>Finish develop the CUDA version of the Dijkstra Algorithm, and start the PIM version of the Dijkstra Algorithm.</p>
-      </div>
-      <div class="w3-panel w3-leftbar w3-light-grey">
-        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-        <p>Week of April 14: </p>
-        <p>Finish the PIM version of the Dijkstra Algorithm.</p>
-      </div>
-      <div class="w3-panel w3-leftbar w3-light-grey">
-        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-        <p>Week of April 21: </p>
-        <p>Collect experimental data and compare the performance. Finish writing the final report.</p>
-      </div>
-      <div class="w3-panel w3-leftbar w3-light-grey">
-        <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
-        <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
-        <p>May 5: </p>
-        <p>Final Project Report Due.</p>
-      </div>
-      <!-- <img src="/coffeehouse.jpg" style="width:100%;max-width:1000px" class="w3-margin-top"> -->
-      <!-- <p><strong>Opening hours:</strong> everyday from 6am to 5pm.</p>
-      <p><strong>Address:</strong> 15 Adr street, 5015, NY</p> -->
-    </div>
-  </div>
 <!-- End page content -->
 </div>
 
