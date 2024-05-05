@@ -171,9 +171,8 @@ body, html {
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
         <p>Algorithm Description</p>
         <p>Dijkstra's algorithm works by iteratively updating the shortest paths to all vertices from a given source. 
-        The algorithm has wide application in the real-world, for instance the network routing protocols, 
-        which Dijkstra's algorithm is foundational for many types of network analysis. 
-        The pseudo-code below demonstrates the naive implementation for the Dijkstra algorithm.</p>
+            The algorithm has wide application in the real-world, for instance the network routing protocols, which Dijkstra's algorithm is foundational 
+            for many types of network analysis. The pseudo-code below demonstrates the naive implementation for the Dijkstra algorithm.</p>
 
         <img src="./algo.png" style="width:100%;max-width:1000px" class="w3-margin-top">
 
@@ -239,14 +238,26 @@ body, html {
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
         <p>GPU Implementation</p>
-        <p>The GPU vertion of the Dijkstra's algorithm composes of two kernel, which the first kernel is using parallel 
-            reduction to find the vertex with the shortest path in the current iteration.</p>
-            <img src="./GPUkernel1-1.png" style="width:100%;max-width:1000px" class="w3-margin-top">
+        <p>TThe GPU vertion of the Dijkstra's algorithm composes of two kernel, which the first kernel 
+            is using parallel reduction to find the vertex with the shortest path in the current iteration.</p>
+        <p>Each thread stores its locally found minimum distance in the shared memory array shared\_dist at the position corresponding to its thread ID within the block.</p>
+        <p>_syncthreads() is a barrier synchronization that ensures all threads in the block have completed their execution up to this point before proceeding. 
+            This is crucial because the next step involves reading values written to shared memory by all threads in the block.</p>
+        <img src="./GPUkernel1-1.png" style="width:100%;max-width:1000px" class="w3-margin-top">
         <p>The above code block is the first half of the shortest vertex finding kernel, which to maximize the performance, 
             each thread load a portion of the current distance collaboratively, 
             then parallelly find the vertex with the shortest path.</p>
 
         <img src="./GPUkernel1-2.png" style="width:100%;max-width:1000px" class="w3-margin-top">
+        
+        <p>Finding the vertex with minimum path length is done by parallel reduction shown in the above code block. 
+            The parallel reduction phase in shared memory efficiently finds the vertex with the minimum path length. 
+            In the loop, each active thread compares distances stored in shared memory: if the distance at position thread_id + s is less than the distance at thread_id, 
+            it updates the minimum value and the corresponding node index. The loop iteratively halves the number of active threads, 
+            reducing the potential minimum distances until only the smallest remains. 
+            This minimum distance and its corresponding vertex index are then written to global memory by the first thread in the block, 
+            marking the identified vertex as visited. This approach minimizes global memory accesses, 
+            leveraging the fast shared memory to improve performance significantly.</p>
         
         <p>Once the current vertex with shortest path is found, the second kernel is launched, to update of each vertex in parallel. 
             Each thread update the shortest path for one vertex to fully utilize the computational power of GPU.</p>
@@ -307,8 +318,9 @@ body, html {
         <p>GPU result</p>
         <img src="./GPUresult.png" style="width:100%;max-width:1000px" class="w3-margin-top">
         <p>Due to the SIMT execution model that is specifically designed for dense data computing, the GPU outperform the CPU when the graph is dense. 
-            Since the CPU only access each vertex sequentially while the GPU is able to update the vertex in parallel, 
-            the benefit of parallelism outweighed the overhead of launching the kernel in GPU when performing Dijkstra's algorithm on a densely connected graph.</p>
+            Since the CPU only access each vertex sequentially while the GPU is able to update the vertexes in parallel, 
+            the benefit of parallelism outweighed the overhead of launching the kernel in GPU when performing Dijkstra's 
+            algorithm on a densely connected graph and the vertex number is large that does not fit into cache.</p>
         <img src="./GPUspeedup.png" style="width:100%;max-width:1000px" class="w3-margin-top">
         <p>As Figure 2 shows, when the graph size is small and is sparsely connected, the GPU is slower than the CPU version of the code, since the overhead of the GPU code is too large compare to the speedup of parallelism. 
             However, when the graph is large and fully connected, the GPU can leverage its computation power and the high bandwidth for memory access, and eventually, 
@@ -321,14 +333,27 @@ body, html {
             <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
             <p>PIM result</p>
             <img src="./PIMresult.png" style="width:100%;max-width:1000px" class="w3-margin-top">
-            <p>As the table demonstrated, the DPU performance does not benefit by the near-data computing. Although the DPU is located near the DRAM and having the short interconnection between DPU and the DRAM, 
+            <p>As the table demonstrated, the DPU performance does not benefit by the near-data computing. 
+                Although the DPU is located near the DRAM and having the short interconnection between DPU and the DRAM, 
                 the less powerful DPU processing unit architecture compared to the highly optimized CPU result in the under-performance of the DPU. 
-                We expect less cycle needed for the DPU due to the easiness of DPU to access to the main memory, however, both execution time and the cycle of DPU have a large figure.</p>
+                We expect less cycle needed for the DPU due to the easiness of DPU to access to the main memory, however, 
+                both execution time and the cycle of DPU show a large figure.</p>
             <img src="./PIMplot.png" style="width:100%;max-width:1000px" class="w3-margin-top">
-            <p>As the plot shows, the PIM execution time increase drastically with the graph size, which is due to the large number of memory access operation and arithmetic due to the large graph size, 
-                yet the simple processing unit architecture does not benefit from the any optimization such as out-of-order execution and memory level parallelism implemented in modern CPU, 
-                and thus result in the bad performance of the DPU. </p>
-    
+            <p>As the plot shows, the PIM execution time increase drastically with the graph size, which is due to the large number of memory access operation and arithmetic due to the large graph size, yet the simple processing unit architecture does not benefit from the any optimization such as out-of-order execution and memory level parallelism implemented in modern CPU. 
+                In addition, due to the limited stack space, the DPU is unable to execute our parallel version of Dijkstra's algorithm and 
+                thus result in the bad performance of the DPU. </p>
+            </div>
+        
+        <div class="w3-panel w3-leftbar w3-light-grey">
+            <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
+            <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
+            <p>Sensitivity analysis</p>
+            <p>The following plot is generated using different density of graph, which using a
+                graph with total of 1024 vertexes.</p>
+            <img src="./sensitivity.png" style="width:100%;max-width:1000px" class="w3-margin-top">
+            <p>The density of the graph has little impact on the execution time of the PIM, which therefore indicating
+                that the PIM execution time is not affected by the irregular data access, instead, it is bottlenecked by
+                the arithmetic and the number of memory access.</p>
             </div>
 
       
@@ -342,6 +367,8 @@ body, html {
         <!-- <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
         <p>Chef, Coffeeist and Owner: Liam Brown</p> -->
         <p>Challenges</p>
+        <p>The challenges below are inherently the bottleneck for Dijkstra's algorithm to have a good performance and leveraging the maximum benefit of parallelism. 
+            Our implementation in the GPU and PIM can only mitigate the effect of workload imbalance and the low data locality to achieve speedup but have not eliminated them.</p>
         <ol>
             <li>Divergent Execution: Both architectures exhibited issues with path length variability affecting thread execution efficiency.</li>
             <li>Workload Imbalance: Non-uniform graph structures led to significant load imbalance, impacting overall performance.</li>
@@ -356,9 +383,12 @@ body, html {
         <p>Comparative Analysis</p>
         <p>GPU vs. PIM:</p>
         <p>While GPU excelled in highly parallelizable tasks, its performance was bottlenecked by memory-intensive operations, a domain where PIM is expected to perform better due to its architecture. 
-            However, in the reality, since the DPU module is primitive and does not have the sophisticate optimization architecture that CPU generally have.
-            The DPU have much worse performance than the CPU. In addition, due to the small stack and heap size, and the limited parallelism of the DPU, 
-            the parallel version of the Dikstra's algorithm cannot be implemented on DPU, which further worsen the DPU performance.</p>
+            However, in the reality, since the DPU module is primitive and does not have the sophisticate optimization architecture that CPU generally have. 
+            The DPU is also not as powerful as the GPU, since it is only a simple accelerator compared to the GPU. 
+            The DPU have much worse performance than the CPU and the GPU, but it is still an active research area with some promising experimental result. 
+            In addition, due to the small stack and heap size, and the limited parallelism of the DPU, the parallel version of the Dikstra's algorithm cannot be implemented on DPU, which further worsen the DPU performance. 
+            The GPU however, is able to outperform the CPU due to this large bandwidth for memory access to DRAM, and the highly parallel execution model to cancel the overhead for launching CUDA kernel when processing a dense graph. 
+            Thus, we are able to outperform the CPU baseline using GPU eventually.</p>
 
         </div>
     </div>
